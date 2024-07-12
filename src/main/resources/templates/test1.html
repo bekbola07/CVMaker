@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="eng">
+<head>
+    <title>CV Maker</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <style>
+        #photo-preview {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <h1>Create Your CV</h1>
+    <form id="cvForm">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="photo">Photo</label>
+                    <input type="file" class="form-control" id="photo" accept="image/*" required>
+                    <img id="photo-preview" src="" alt="Photo Preview" class="mt-2"/>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="firstname">First Name</label>
+                    <input type="text" class="form-control" id="firstname" required>
+                </div>
+                <div class="form-group">
+                    <label for="lastname">Last Name</label>
+                    <input type="text" class="form-control" id="lastname" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" required>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <h2>Education</h2>
+        <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#educationModal">Add Education</button>
+        <div id="education-list"></div>
+        <hr>
+        <h2>Experience</h2>
+        <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#experienceModal">Add Experience</button>
+        <div id="experience-list"></div>
+        <hr>
+        <h2>Skills</h2>
+        <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#skillModal">Add Skill</button>
+        <div id="skills-list"></div>
+        <hr>
+        <button type="submit" class="btn btn-success">Create CV</button>
+    </form>
+</div>
+
+<!-- Modals -->
+<!-- Education Modal -->
+<div class="modal fade" id="educationModal" tabindex="-1" role="dialog" aria-labelledby="educationModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="educationModalLabel">Add Education</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="education-where">Where</label>
+                    <input type="text" class="form-control" id="education-where" required>
+                </div>
+                <div class="form-group">
+                    <label for="education-from">From</label>
+                    <input type="month" class="form-control" id="education-from" required>
+                </div>
+                <div class="form-group">
+                    <label for="education-to">To</label>
+                    <input type="month" class="form-control" id="education-to" required>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="save-education">Save Education</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Experience Modal -->
+<div class="modal fade" id="experienceModal" tabindex="-1" role="dialog" aria-labelledby="experienceModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="experienceModalLabel">Add Experience</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="experience-where">Where</label>
+                    <input type="text" class="form-control" id="experience-where" required>
+                </div>
+                <div class="form-group">
+                    <label for="experience-from">From</label>
+                    <input type="month" class="form-control" id="experience-from" required>
+                </div>
+                <div class="form-group">
+                    <label for="experience-to">To</label>
+                    <input type="month" class="form-control" id="experience-to" required>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="save-experience">Save Experience</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Skill Modal -->
+<div class="modal fade" id="skillModal" tabindex="-1" role="dialog" aria-labelledby="skillModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="skillModalLabel">Add Skill</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="skill-name">Skill Name</label>
+                    <input type="text" class="form-control" id="skill-name" required>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="save-skill">Save Skill</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.getElementById('photo').addEventListener('change', function(event) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('photo-preview').src = e.target.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    });
+
+    document.getElementById('education-from').addEventListener('change', function() {
+        document.getElementById('education-to').min = this.value;
+    });
+
+    document.getElementById('experience-from').addEventListener('change', function() {
+        document.getElementById('experience-to').min = this.value;
+    });
+
+    document.getElementById('save-education').addEventListener('click', function() {
+        const where = document.getElementById('education-where').value;
+        const from = document.getElementById('education-from').value;
+        const to = document.getElementById('education-to').value;
+        if (where && from && to) {
+            const educationList = document.getElementById('education-list');
+            const educationItem = document.createElement('div');
+            educationItem.className = 'education-item';
+            educationItem.innerText = JSON.stringify({ where, from, to });
+            educationList.appendChild(educationItem);
+            $('#educationModal').modal('hide');
+        }
+    });
+
+    document.getElementById('save-experience').addEventListener('click', function() {
+        const where = document.getElementById('experience-where').value;
+        const from = document.getElementById('experience-from').value;
+        const to = document.getElementById('experience-to').value;
+        if (where && from && to) {
+            const experienceList = document.getElementById('experience-list');
+            const experienceItem = document.createElement('div');
+            experienceItem.className = 'experience-item';
+            experienceItem.innerText = JSON.stringify({ where, from, to });
+            experienceList.appendChild(experienceItem);
+            $('#experienceModal').modal('hide');
+        }
+    });
+
+    document.getElementById('save-skill').addEventListener('click', function() {
+        const name = document.getElementById('skill-name').value;
+        if (name) {
+            const skillsList = document.getElementById('skills-list');
+            const skillItem = document.createElement('div');
+            skillItem.className = 'skill-item';
+            skillItem.innerText = JSON.stringify({ name });
+            skillsList.appendChild(skillItem);
+            $('#skillModal').modal('hide');
+        }
+    });
+
+    document.getElementById('cvForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const formData = new FormData();
+        formData.append('firstname', document.getElementById('firstname').value);
+        formData.append('lastname', document.getElementById('lastname').value);
+        formData.append('email', document.getElementById('email').value);
+        formData.append('photo', document.getElementById('photo').files[0]);
+
+        const educations = [];
+        document.querySelectorAll('.education-item').forEach(item => {
+            educations.push(JSON.parse(item.innerText));
+        });
+        formData.append('educations', JSON.stringify(educations));
+
+        const experiences = [];
+        document.querySelectorAll('.experience-item').forEach(item => {
+            experiences.push(JSON.parse(item.innerText));
+        });
+        formData.append('experiences', JSON.stringify(experiences));
+
+        const skills = [];
+        document.querySelectorAll('.skill-item').forEach(item => {
+            skills.push(JSON.parse(item.innerText));
+        });
+        formData.append('skills', JSON.stringify(skills));
+
+        fetch('/api/cv', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.blob())
+            .then(blob => {
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = url;
+                a.download = 'cv.pdf';
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+            })
+            .catch(error => console.error('Error:', error));
+    });
+</script>
+</body>
+</html>
